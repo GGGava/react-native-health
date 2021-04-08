@@ -21,6 +21,8 @@
 #import "RCTAppleHealthKit+Methods_Workout.h"
 #import "RCTAppleHealthKit+Methods_LabTests.h"
 
+#import "RNAppleHealthKit-Swift.h"
+
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
 
@@ -32,7 +34,7 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(isAvailable:(RCTResponseSenderBlock)callback)
 {
-    [self isHealthKitAvailable:callback];
+    [RNAppleHealthKit isHealthKitAvailable:callback];
 }
 
 RCT_EXPORT_METHOD(initHealthKit:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback)
@@ -349,18 +351,6 @@ RCT_EXPORT_METHOD(saveBloodAlcoholContent: (NSDictionary *)input callback:(RCTRe
 {
     [self labTests_saveBloodAlcoholContent:input callback:callback];
 }
-
-- (void)isHealthKitAvailable:(RCTResponseSenderBlock)callback
-{
-    BOOL isAvailable = NO;
-
-    if ([HKHealthStore isHealthDataAvailable]) {
-        isAvailable = YES;
-    }
-
-    callback(@[[NSNull null], @(isAvailable)]);
-}
-
 
 - (void)initializeHealthKit:(NSDictionary *)input callback:(RCTResponseSenderBlock)callback
 {
